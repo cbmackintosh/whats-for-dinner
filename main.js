@@ -11,11 +11,13 @@ var findEntireMeal = document.querySelector('.entire-meal-button');
 var letsCook = document.querySelector('.lets-cook');
 var cookpot = document.querySelector('.cookpot')
 var foodLog = document.querySelector('.food-log')
+var foodMessage = document.querySelector('.food-message');
 
 letsCook.addEventListener('click', findRandomDish);
 
 function findRandomDish() {
-  hideCookpot()
+  hideElement(cookpot)
+  showElement(foodMessage)
   if (findSideDish.checked === true) {
     foodLog.innerText = sides[Math.floor(Math.random() * sides.length)];
   } else if (findMainDish.checked === true) {
@@ -28,8 +30,12 @@ function findRandomDish() {
 
 // HELPER FUNCTIONS:
 
-function hideCookpot() {
-  cookpot.classList.add('hidden');
+function hideElement(element) {
+  element.classList.add('hidden');
+}
+
+function showElement(element) {
+  element.classList.remove('hidden');
 }
 
 function resetRadioButtons() {
