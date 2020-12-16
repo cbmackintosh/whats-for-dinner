@@ -97,6 +97,14 @@ input {
   margin-top: 100px;
 }
 
+.clear-button {
+  background-color: #95a5a6;
+  float: right;
+  margin: 50px;
+  font-size: 20px;
+  height: 40px;
+  width: 200px;
+}
 /* font-family: 'Roboto', sans-serif;
 
 COLORS
