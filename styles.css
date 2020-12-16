@@ -79,6 +79,9 @@ input {
   font-family: 'Roboto', sans-serif;
 }
 
+.hidden {
+  display: none;
+}
 
 /* font-family: 'Roboto', sans-serif;
 
