@@ -1,7 +1,7 @@
 
-var sides = ['Miso Glazed Carrots', 'Coleslaw', 'Garden Salad', 'Crispy Potatoes', 'Sweet Potato Tots', 'Coconut Rice', 'Caeser Salad', 'Shrimp Summer Rolls', 'Garlic Butter Mushrooms', 'Hush Puppies'];
-var mains = ['Spaghetti and Meatballs', 'Pineapple Chicken', 'Shakshuka', 'Thai Yellow Curry', 'Bibimbap', 'Chicken Parmesean', 'Butternut Squash Soup', 'BBQ Chicken Burgers', 'Ramen', 'Empanadas', 'Chicken Fried Rice', 'Sheet Pan Fajitas', 'Margarita Pizza'];
-var desserts = ['Apple Pie', 'Lemon Meringue Pie', 'Black Forest Cake', 'Banana Bread', 'Peach Cobbler', 'Cheesecake', 'Funfetti Cake', 'Baklava', 'Flan', 'Macarons', 'Macaroons', 'Chocolate Cupcakes', 'Pavlova', 'Pumpkin Pie', 'Key Lime Pie', 'Tart Tatin', 'Croissants', 'Eclairs'];
+var sides = ['MISO GLAZED CARROTS', 'COLESLAW', 'GARDEN SALAD', 'CRISPY POTATOES', 'SWEET POTATO TOTS', 'COCONUT RICE', 'CAESER SALAD', 'SHRIMP SUMMER ROLLS', 'GARLIC BUTTER MUSHROOMS', 'HUSH PUPPIES'];
+var mains = ['SPAGHETTI AND MEATBALLS', 'PINEAPPLE CHICKEN', 'SHAKSHUKA', 'THAI YELLOW CURRY', 'BIBIMBAP', 'CHICKEN PARMESEAN', 'BUTTERNUT SQUASH SOUP', 'BBQ CHICKEN BURGERS', 'RAMEN', 'EMPANADAS', 'CHICKEN FRIED RICE', 'SHEET PAN FAJITAS', 'MARGARITA PIZZA'];
+var desserts = ['APPLE PIE', 'LEMON MERINGUE PIE', 'BLACK FOREST CAKE', 'BANANA BREAD', 'PEACH COBBLER', 'CHEESECAKE', 'FUNFETTI CAKE', 'BAKLAVA', 'FLAN', 'MACARONS', 'MACAROONS', 'CHOCOLATE CUPCAKES', 'PAVLOVA', 'PUMPKIN PIE', 'KEY LIME PIE', 'TART TATIN', 'CROISSANTS', 'ECLAIRS'];
 
 var findSideDish = document.querySelector('#side-button');
 var findMainDish = document.querySelector('#mains-button');
@@ -71,11 +71,11 @@ function displayRecipeSubmissionForm() {
 
 function pushUserRecipe() {
   if (submitNewSide.checked === true && checkArrayForDups(sides) === false) {
-    sides.push(recipeSubmissionField.value);
+    sides.push(recipeSubmissionField.value.toUpperCase());
   } else if (submitNewMain.checked === true && checkArrayForDups(mains) === false) {
-    mains.push(recipeSubmissionField.value);
+    mains.push(recipeSubmissionField.value.toUpperCase());
   } else if (submitNewDessert.checked === true && checkArrayForDups(desserts) === false) {
-    desserts.push(recipeSubmissionField.value);
+    desserts.push(recipeSubmissionField.value.toUpperCase());
   } else {
     return;
   }
@@ -83,7 +83,7 @@ function pushUserRecipe() {
 
 function checkArrayForDups(array) {
   for (i = 0; i < array.length; i++) {
-    if (array[i] == recipeSubmissionField.value) {
+    if (array[i] == recipeSubmissionField.value.toUpperCase()) {
       return true;
     }
   }
