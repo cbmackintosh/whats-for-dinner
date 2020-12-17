@@ -18,7 +18,10 @@ var cookpot = document.querySelector('.cookpot');
 var foodLog = document.querySelector('.food-log');
 var foodMessage = document.querySelector('.food-message');
 var clearButton = document.querySelector('.clear-button');
+var removeRecipeButton = document.querySelector('.remove-recipe');
 var addARecipeButton = document.querySelector('.add-a-recipe');
+
+var navBarButtons = document.querySelector('.nav-bar-buttons');
 var viewFavorites = document.querySelector('.view-favorites');
 var addFavoriteButton = document.querySelector('.add-favorite');
 
@@ -32,15 +35,17 @@ var submitMealErrorMessage = document.querySelector('.error-message')
 var exitSubmitMenu = document.querySelector('.exit-submit-menu');
 
 var exitFavsMenu = document.querySelector('.exit-favs-menu')
+var favoritesList = document.querySelector('.favorites-list')
 
 letsCook.addEventListener('click', displayMeal);
-clearButton.addEventListener('click', resetDefaultView)
-addARecipeButton.addEventListener('click', displayRecipeSubmissionForm)
-submitNewRecipeButton.addEventListener('click', pushUserRecipe)
-addFavoriteButton.addEventListener('click', pushRecipeToFavs)
-viewFavorites.addEventListener('click', displayFavoritesView)
-exitFavsMenu.addEventListener('click', resetDefaultView)
-exitSubmitMenu.addEventListener('click', resetDefaultView)
+clearButton.addEventListener('click', resetDefaultView);
+addARecipeButton.addEventListener('click', displayRecipeSubmissionForm);
+submitNewRecipeButton.addEventListener('click', pushUserRecipe);
+addFavoriteButton.addEventListener('click', pushRecipeToFavs);
+viewFavorites.addEventListener('click', displayFavoritesView);
+exitFavsMenu.addEventListener('click', resetDefaultView);
+exitSubmitMenu.addEventListener('click', resetDefaultView);
+removeRecipeButton.addEventListener('click', removeRecipeFunc);
 
 function displayMeal() {
   if (findSideDish.checked === true) {
@@ -69,41 +74,54 @@ function displayMealView() {
   showElement(foodMessage)
   showElement(clearButton)
   showElement(addFavoriteButton)
+  showElement(removeRecipeButton)
+}
+
+function hideMealDisplay() {
+  hideElement(foodMessage)
+  hideElement(foodLog)
+  hideElement(clearButton)
+  hideElement(removeRecipeButton);
 }
 
 function resetDefaultView() {
   showElement(homeMenu);
   showElement(mealDisplay);
-  resetRadioButtons()
-  showElement(cookpot)
-  hideElement(foodMessage)
-  hideElement(foodLog)
-  hideElement(clearButton)
-  hideElement(addFavoriteButton)
-  hideElement(favoritesMenu)
-  hideElement(recipeSubmissionMenu)
+  resetRadioButtons();
+  showElement(cookpot);
+  hideMealDisplay();
+  hideElement(addFavoriteButton);
+  hideElement(favoritesMenu);
+  hideElement(recipeSubmissionMenu);
+  showElement(navBarButtons);
+  resetForm();
+  favoritesList.innerHTML = '';
 }
 
-function displayFavoritesView() {
-  hideElement(homeMenu);
-  hideElement(mealDisplay);
-  showElement(favoritesMenu);
+function removeRecipeFunc() {
+  spliceElementFromArray(sides, foodLog.innerText);
+  spliceElementFromArray(mains, foodLog.innerText);
+  spliceElementFromArray(desserts, foodLog.innerText);
+  foodLog.innerText = 'RECIPE REMOVED'
+  hideElement(foodMessage);
 }
+
+//USER SUBMITTED RECIPE FORM
 
 function displayRecipeSubmissionForm() {
-  showElement(recipeSubmissionMenu)
+  showElement(recipeSubmissionMenu);
 }
 
 function pushUserRecipe() {
-  if (submitNewSide.checked === true && checkArrayForDups(sides) === false) {
+  if (submitNewSide.checked === true && checkArrayForDups(sides, recipeSubmissionField.value) === false) {
     sides.push(recipeSubmissionField.value.toUpperCase());
     foodLog.innerText = recipeSubmissionField.value.toUpperCase();
     displayMealView()
-  } else if (submitNewMain.checked === true && checkArrayForDups(mains) === false) {
+  } else if (submitNewMain.checked === true && checkArrayForDups(mains, recipeSubmissionField.value) === false) {
     mains.push(recipeSubmissionField.value.toUpperCase());
     foodLog.innerText = recipeSubmissionField.value.toUpperCase();
     displayMealView()
-  } else if (submitNewDessert.checked === true && checkArrayForDups(desserts) === false) {
+  } else if (submitNewDessert.checked === true && checkArrayForDups(desserts, recipeSubmissionField.value) === false) {
     desserts.push(recipeSubmissionField.value.toUpperCase());
     foodLog.innerText = recipeSubmissionField.value.toUpperCase();
     displayMealView()
@@ -112,22 +130,65 @@ function pushUserRecipe() {
   }
 }
 
-function checkArrayForDups(array) {
-  for (i = 0; i < array.length; i++) {
-    if (array[i] == recipeSubmissionField.value.toUpperCase()) {
-      submitMealErrorMessage.innerText = 'duplicate found'
-      return true;
-    }
+function resetForm() {
+  submitNewSide.checked = false;
+  submitNewMain.checked = false;
+  submitNewDessert.checked = false;
+  recipeSubmissionField.value = '';
+}
+
+//FAVORITES MENU
+
+function displayFavoritesView() {
+  hideElement(homeMenu);
+  hideElement(recipeSubmissionMenu);
+  hideElement(mealDisplay);
+  showElement(favoritesMenu);
+  hideElement(navBarButtons)
+  listFavorites();
+}
+
+function listFavorites() {
+  for (i = 0; i < favorites.length; i++) {
+    favoritesList.innerHTML += `<li>${favorites[i]}<button class= 'delete-fav' id=${[i]}>DELETE</button></li>`
   }
-  submitMealErrorMessage.innerText = ''
-  return false;
+  var listItems = document.querySelectorAll('.delete-fav');
+  for (i = 0; i < listItems.length; i++) {
+    listItems[i].addEventListener('click', deleteFavRecipe);
+  }
+}
+
+function deleteFavRecipe() {
+  favorites.splice(event.target.closest('.delete-fav').id, 1);
+  favoritesList.innerHTML = '';
+  displayFavoritesView()
 }
 
 function pushRecipeToFavs() {
-  favorites.push(foodLog.innerText);
+  if (checkArrayForDups(favorites, foodLog.innerText) === false) {
+    favorites.push(foodLog.innerText);
+  }
 }
 
 // HELPER FUNCTIONS:
+
+function checkArrayForDups(array, string) {
+  for (i = 0; i < array.length; i++) {
+    if (array[i] == string.toUpperCase()) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function spliceElementFromArray(array, string) {
+  for (i = 0; i < array.length; i++) {
+    if (array[i] === string) {
+      array.splice(i, 1);
+      return;
+    }
+  }
+}
 
 function hideElement(element) {
   element.classList.add('hidden');

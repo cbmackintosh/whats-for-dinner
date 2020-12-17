@@ -54,13 +54,15 @@ nav {
   padding: 5vh;
 }
 
-
-
 .home-menu {
   background-color: rgba(225, 225, 225, .9);
   width: 40vw;
   height: 35vw;
   overflow: auto;
+}
+
+.meal-selection-options {
+  list-style: none;
 }
 
 /* MEAL DISPLAY*/
@@ -100,7 +102,9 @@ nav {
   color: red;
 }
 
-
+.favorites-list {
+  list-style: none;
+}
 
 /* font-family: 'Roboto', sans-serif;
 COLORS
