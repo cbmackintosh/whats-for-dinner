@@ -12,12 +12,12 @@ var letsCook = document.querySelector('.lets-cook');
 var cookpot = document.querySelector('.cookpot')
 var foodLog = document.querySelector('.food-log')
 var foodMessage = document.querySelector('.food-message');
+var clearButton = document.querySelector('.clear-button');
 
 letsCook.addEventListener('click', displayMeal);
+clearButton.addEventListener('click', resetDefaultView)
 
 function displayMeal() {
-  hideElement(cookpot)
-  showElement(foodMessage)
   if (findSideDish.checked === true) {
     findRandomSingleDish(sides);
   } else if (findMainDish.checked === true) {
@@ -26,12 +26,31 @@ function displayMeal() {
     findRandomSingleDish(desserts);
   } else if (findEntireMeal.checked === true) {
     foodLog.innerText = `${mains[Math.floor(Math.random() * mains.length)]} with a side of ${sides[Math.floor(Math.random() * sides.length)]} and ${desserts[Math.floor(Math.random() * desserts.length)]} for dessert!`
+    displayMealView()
+  } else {
+    return;
   }
   resetRadioButtons()
 }
 
 function findRandomSingleDish(course) {
   foodLog.innerText = course[Math.floor(Math.random() * course.length)];
+  displayMealView()
+}
+
+function displayMealView() {
+  hideElement(cookpot)
+  showElement(foodLog)
+  showElement(foodMessage)
+  showElement(clearButton)
+}
+
+function resetDefaultView() {
+  resetRadioButtons()
+  showElement(cookpot)
+  hideElement(foodMessage)
+  hideElement(foodLog)
+  hideElement(clearButton)
 }
 
 // HELPER FUNCTIONS:
