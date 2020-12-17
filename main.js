@@ -30,16 +30,6 @@ function findRandomDish() {
 
 // HELPER FUNCTIONS:
 
-function hideElement(element) {
+function toggleVisibility(element) {
   element.classList.add('hidden');
-}
-
-function showElement(element) {
-  element.classList.remove('hidden');
-}
-
-function resetRadioButtons() {
-  findSideDish.checked = false;
-  findSideDish.checked = false;
-  findSideDish.checked = false;
 }

@@ -1,116 +1,54 @@
+
+/* GLOBAL STYLING */
+
 body {
   background-image: url('./assets/burger-friends.jpg');
-  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
   margin: 0px;
-}
-
-button {
-  border-radius: 5px;
-  font-family: 'Roboto', sans-serif;
 }
 
 nav {
+  display: flex;
+  justify-content: space-between;
   background-color: #0fb9b1;
-  padding: 10px;
-  margin: 0px;
-  overflow: auto;
+  height: 7%;
+  padding: 1vh;
 }
 
-.add-a-recipe {
-  float: right;
-  width: 150px;
-}
-
-ul {
-  list-style-type: none;
+button {
   font-family: 'Roboto', sans-serif;
-  font-size: 32px;
-}
-
-.nav-bar-heading {
-  font-family: 'Roboto', sans-serif;
-  font-size: 24px;
-}
-
-h2 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: bold;
-  font-size: 48px;
-}
-
-p {
-  font-family: 'Roboto', sans-serif;
+  border-radius: 5px;
+  border: none;
+  height: 7vh;
 }
 
 .home-view {
-  padding: 20px
+  display: flex;
+  justify-content: space-around;
+  height: 80vh;
+  padding: 5vh;
 }
 
 .home-menu {
   background-color: rgba(225, 225, 225, .9);
-  width: 30%;
-  height: 500px;
-  float: left;
-  padding: 40px;
-  margin: 100px;
-}
-
-.lets-cook {
-  font-size: 20px;
-  background-color: #0fb9b1;
-  height: 40px;
-  width: 200px;
+  width: 40vw;
+  height: 35vw
 }
 
 .meal-display {
   background-color: rgba(225, 225, 225, .9);
-  width: 30%;
-  float: left;
-  padding: 40px;
-  height: 500px;
-  margin: 100px;
+  width: 40vw;
+  height: 35vw
 }
 
-.cookpot {
-  margin: 150px;
-}
 
-input {
-  font-family: 'Roboto', sans-serif;
-}
-
-.hidden {
-  display: none;
-}
-
-.food-log {
-  font-family: 'Roboto', sans-serif;
-  text-align: center;
-  margin-bottom: 150px;
-  font-size: 48px;
-  font-weight: 500;
-}
-
-.food-message {
-  text-align: center;
-  font-style: italic;
-  margin-top: 100px;
-}
-
-.clear-button {
-  background-color: #95a5a6;
-  float: right;
-  margin: 50px;
-  font-size: 20px;
-  height: 40px;
-  width: 200px;
-}
 /* font-family: 'Roboto', sans-serif;
-
 COLORS
 teal - #0fb9b1;
 frosted white - rgba(225, 225, 225, .9);
 grey - #95a5a6;
 red - #ee5253
-
 */
