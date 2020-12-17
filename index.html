@@ -5,29 +5,51 @@
   </head>
   <body>
     <nav>
-      <button class='add-a-recipe'><p>ADD A RECIPE</p></button>
       <h2 class='nav-bar-heading'>What's for Dinner?</h2>
+      <ul class='nav-bar-buttons'>
+        <li><button class='add-a-recipe'>ADD A RECIPE</button></li>
+        <li><button class='view-favorites'>VIEW FAVORITES</button></li>
+    </ul>
     </nav>
     <section class='home-view'>
       <div class='home-menu'>
         <h2>What are you looking for?</h2>
-        <ul>
-          <li><input class='side-button' type='radio' name='test'>Side</li>
+        <ul class='meal-selection-options'>
+          <li><input class= 'meal-option-button' id='side-button' type='radio' name='test'>Side</li>
           <br>
-          <li><input class='mains-button' type='radio' name='test'>Main Dish</li>
+          <li><input class= 'meal-option-button' id='mains-button' type='radio' name='test'>Main Dish</li>
           <br>
-          <li><input class='desserts-button' type='radio' name='test'>Dessert</li>
+          <li><input class= 'meal-option-button' id='desserts-button' type='radio' name='test'>Dessert</li>
           <br>
-          <li><input class='entire-meal-button' type='radio' name='test'>Entire Meal</li>
+          <li><input class= 'meal-option-button' id='entire-meal-button' type='radio' name='test'>Entire Meal</li>
           <br>
           <button class='lets-cook'>LET'S COOK!</button>
         </ul>
+      </div>
+      <div class='favorites-menu hidden'>
+        <h2>Favorites</h2>
+        <button class='exit-favs-menu'>BACK</button>
       </div>
       <div class='meal-display'>
         <img class='cookpot' src='./assets/cookpot.svg'>
         <p class='food-message hidden'>You should make</p>
         <p class='food-log'></p>
-        <button class='clear-button'>CLEAR</button>
+        <button class='clear-button hidden'>CLEAR</button>
+        <button class='add-favorite hidden'>ADD FAVORITE</button>
+      </div>
+    </section>
+
+    <section class='recipe-submission-menu-container hidden'>
+      <div class='recipe-submission-menu'>
+        <h3>Recipe Type:</h3>
+        <input class='submit-side' type='radio' name='submission-option'>side</input>
+        <input class='submit-main' type='radio' name='submission-option'>main</input>
+        <input class='submit-dessert' type='radio'name='submission-option'>dessert</input>
+        <h3>Recipe Name:</h3>
+        <input class='recipe-submission-field' type='field'></input>
+        <button class='submit-new-recipe-button'>ADD NEW</button>
+        <h3 class='error-message'></h3>
+        <button class='exit-submit-menu'>CLOSE</button>
       </div>
     </section>
 </div>
