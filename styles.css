@@ -100,7 +100,9 @@ nav {
   color: red;
 }
 
-
+.favorites-list {
+  list-style: none;
+}
 
 /* font-family: 'Roboto', sans-serif;
 COLORS

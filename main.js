@@ -83,7 +83,34 @@ function resetDefaultView() {
   hideElement(addFavoriteButton)
   hideElement(favoritesMenu)
   hideElement(recipeSubmissionMenu)
+  favoritesList.innerHTML = '';
 }
+
+//USER SUBMITTED RECIPE FORM
+
+function displayRecipeSubmissionForm() {
+  showElement(recipeSubmissionMenu)
+}
+
+function pushUserRecipe() {
+  if (submitNewSide.checked === true && checkArrayForDups(sides, recipeSubmissionField.value) === false) {
+    sides.push(recipeSubmissionField.value.toUpperCase());
+    foodLog.innerText = recipeSubmissionField.value.toUpperCase();
+    displayMealView()
+  } else if (submitNewMain.checked === true && checkArrayForDups(mains, recipeSubmissionField.value) === false) {
+    mains.push(recipeSubmissionField.value.toUpperCase());
+    foodLog.innerText = recipeSubmissionField.value.toUpperCase();
+    displayMealView()
+  } else if (submitNewDessert.checked === true && checkArrayForDups(desserts, recipeSubmissionField.value) === false) {
+    desserts.push(recipeSubmissionField.value.toUpperCase());
+    foodLog.innerText = recipeSubmissionField.value.toUpperCase();
+    displayMealView()
+  } else {
+    return;
+  }
+}
+
+//FAVORITES MENU
 
 function displayFavoritesView() {
   hideElement(homeMenu);
@@ -94,48 +121,36 @@ function displayFavoritesView() {
 
 function listFavorites() {
   for (i = 0; i < favorites.length; i++) {
-    favoritesList.innerHTML += `<li>${favorites[i]}</li>`
+    favoritesList.innerHTML += `<li>${favorites[i]}<button class= 'delete-fav' id=${[i]}>DELETE</button></li>`
+  }
+  var listItems = document.querySelectorAll('.delete-fav');
+  for (i = 0; i < listItems.length; i++) {
+    listItems[i].addEventListener('click', deleteFavRecipe)
   }
 }
 
-function displayRecipeSubmissionForm() {
-  showElement(recipeSubmissionMenu)
-}
-
-function pushUserRecipe() {
-  if (submitNewSide.checked === true && checkArrayForDups(sides) === false) {
-    sides.push(recipeSubmissionField.value.toUpperCase());
-    foodLog.innerText = recipeSubmissionField.value.toUpperCase();
-    displayMealView()
-  } else if (submitNewMain.checked === true && checkArrayForDups(mains) === false) {
-    mains.push(recipeSubmissionField.value.toUpperCase());
-    foodLog.innerText = recipeSubmissionField.value.toUpperCase();
-    displayMealView()
-  } else if (submitNewDessert.checked === true && checkArrayForDups(desserts) === false) {
-    desserts.push(recipeSubmissionField.value.toUpperCase());
-    foodLog.innerText = recipeSubmissionField.value.toUpperCase();
-    displayMealView()
-  } else {
-    return;
-  }
-}
-
-function checkArrayForDups(array) {
-  for (i = 0; i < array.length; i++) {
-    if (array[i] == recipeSubmissionField.value.toUpperCase()) {
-      submitMealErrorMessage.innerText = 'duplicate found'
-      return true;
-    }
-  }
-  submitMealErrorMessage.innerText = ''
-  return false;
+function deleteFavRecipe() {
+  favorites.splice(event.target.closest('.delete-fav').id, 1);
+  favoritesList.innerHTML = '';
+  displayFavoritesView()
 }
 
 function pushRecipeToFavs() {
-  favorites.push(foodLog.innerText);
+  if (checkArrayForDups(favorites, foodLog.innerText) === false) {
+    favorites.push(foodLog.innerText);
+  }
 }
 
 // HELPER FUNCTIONS:
+
+function checkArrayForDups(array, string) {
+  for (i = 0; i < array.length; i++) {
+    if (array[i] == string.toUpperCase()) {
+      return true;
+    }
+  }
+  return false;
+}
 
 function hideElement(element) {
   element.classList.add('hidden');
