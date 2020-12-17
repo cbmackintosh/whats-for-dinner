@@ -19,6 +19,8 @@ var foodLog = document.querySelector('.food-log');
 var foodMessage = document.querySelector('.food-message');
 var clearButton = document.querySelector('.clear-button');
 var addARecipeButton = document.querySelector('.add-a-recipe');
+
+var navBarButtons = document.querySelector('.nav-bar-buttons');
 var viewFavorites = document.querySelector('.view-favorites');
 var addFavoriteButton = document.querySelector('.add-favorite');
 
@@ -83,6 +85,8 @@ function resetDefaultView() {
   hideElement(addFavoriteButton)
   hideElement(favoritesMenu)
   hideElement(recipeSubmissionMenu)
+  showElement(navBarButtons)
+  resetForm();
   favoritesList.innerHTML = '';
 }
 
@@ -110,12 +114,21 @@ function pushUserRecipe() {
   }
 }
 
+function resetForm() {
+  submitNewSide.checked = false;
+  submitNewMain.checked = false;
+  submitNewDessert.checked = false;
+  recipeSubmissionField.value = '';
+}
+
 //FAVORITES MENU
 
 function displayFavoritesView() {
   hideElement(homeMenu);
+  hideElement(recipeSubmissionMenu);
   hideElement(mealDisplay);
   showElement(favoritesMenu);
+  hideElement(navBarButtons)
   listFavorites();
 }
 
