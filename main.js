@@ -15,7 +15,7 @@ var foodMessage = document.querySelector('.food-message');
 var clearButton = document.querySelector('.clear-button');
 
 var addARecipeButton = document.querySelector('.add-a-recipe')
-var recipeSubmissionMenu = document.querySelector('.recipe-submission-menu')
+var recipeSubmissionMenu = document.querySelector('.recipe-submission-menu-container')
 
 letsCook.addEventListener('click', displayMeal);
 clearButton.addEventListener('click', resetDefaultView)

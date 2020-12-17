@@ -71,12 +71,13 @@ nav {
 /*ADD NEW RECIPE MENU*/
 
 .recipe-submission-menu {
-  display: flex;
   background-color: rgba(225, 225, 225, .9);
   height: 7%;
   bottom: 0;
   width: 100%;
   position: absolute;
+  display: flex;
+  justify-content: flex-start;
 }
 
 /* font-family: 'Roboto', sans-serif;
