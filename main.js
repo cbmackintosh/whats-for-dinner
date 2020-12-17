@@ -21,6 +21,7 @@ var submitNewRecipeButton = document.querySelector('.submit-new-recipe-button');
 var submitNewSide = document.querySelector('.submit-side');
 var submitNewMain = document.querySelector('.submit-main');
 var submitNewDessert = document.querySelector('.submit-dessert');
+var submitMealErrorMessage = document.querySelector('.error-message')
 
 letsCook.addEventListener('click', displayMeal);
 clearButton.addEventListener('click', resetDefaultView)
@@ -69,15 +70,24 @@ function displayRecipeSubmissionForm() {
 }
 
 function pushUserRecipe() {
-  if (submitNewSide.checked === true) {
+  if (submitNewSide.checked === true && checkArrayForDups(sides) === false) {
     sides.push(recipeSubmissionField.value);
-  } else if (submitNewMain.checked === true) {
+  } else if (submitNewMain.checked === true && checkArrayForDups(mains) === false) {
     mains.push(recipeSubmissionField.value);
-  } else if (submitNewDessert.checked === true) {
+  } else if (submitNewDessert.checked === true && checkArrayForDups(desserts) === false) {
     desserts.push(recipeSubmissionField.value);
   } else {
     return;
   }
+}
+
+function checkArrayForDups(array) {
+  for (i = 0; i < array.length; i++) {
+    if (array[i] == recipeSubmissionField.value) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // HELPER FUNCTIONS:
