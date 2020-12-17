@@ -10,6 +10,15 @@ body {
   margin: 0px;
 }
 
+button {
+  font-family: 'Roboto', sans-serif;
+  border-radius: 5px;
+  border: none;
+  height: 7vh;
+}
+
+/*NAV BAR*/
+
 nav {
   display: flex;
   justify-content: space-between;
@@ -18,12 +27,14 @@ nav {
   padding: 1vh;
 }
 
-button {
-  font-family: 'Roboto', sans-serif;
-  border-radius: 5px;
-  border: none;
-  height: 7vh;
+.hidden {
+  display: none;
 }
+
+.nav-bar-heading {
+  font-family: 'Roboto', sans-serif;
+  vertical-align: middle;
+ }
 
 .home-view {
   display: flex;
@@ -35,13 +46,15 @@ button {
 .home-menu {
   background-color: rgba(225, 225, 225, .9);
   width: 40vw;
-  height: 35vw
+  height: 35vw;
+  overflow: auto;
 }
 
 .meal-display {
   background-color: rgba(225, 225, 225, .9);
   width: 40vw;
-  height: 35vw
+  height: 35vw;
+  overflow: auto;
 }
 
 
