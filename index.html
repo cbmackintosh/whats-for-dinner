@@ -6,7 +6,10 @@
   <body>
     <nav>
       <h2 class='nav-bar-heading'>What's for Dinner?</h2>
-      <button class='add-a-recipe'><p>ADD A RECIPE</p></button>
+      <ul class='nav-bar-buttons'>
+        <li><button class='add-a-recipe'>ADD A RECIPE</button></li>
+        <li><button class='view-favorites'>VIEW FAVORITES</button></li>
+    </ul>
     </nav>
     <section class='home-view'>
       <div class='home-menu'>
@@ -23,13 +26,19 @@
           <button class='lets-cook'>LET'S COOK!</button>
         </ul>
       </div>
+      <div class='favorites-menu hidden'>
+        <h2>Favorites</h2>
+        <button class='exit-favs-menu'>BACK</button>
+      </div>
       <div class='meal-display'>
         <img class='cookpot' src='./assets/cookpot.svg'>
         <p class='food-message hidden'>You should make</p>
         <p class='food-log'></p>
         <button class='clear-button hidden'>CLEAR</button>
+        <button class='add-favorite hidden'>ADD FAVORITE</button>
       </div>
     </section>
+
     <section class='recipe-submission-menu-container hidden'>
       <div class='recipe-submission-menu'>
         <h3>Recipe Type:</h3>
@@ -40,6 +49,7 @@
         <input class='recipe-submission-field' type='field'></input>
         <button class='submit-new-recipe-button'>ADD NEW</button>
         <h3 class='error-message'></h3>
+        <button class='exit-submit-menu'>CLOSE</button>
       </div>
     </section>
 </div>

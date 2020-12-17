@@ -36,6 +36,15 @@ nav {
   vertical-align: middle;
  }
 
+ .nav-bar-buttons {
+   list-style: none;
+ }
+
+ .nav-bar-buttons > li {
+   float: left;
+   padding: 5px;
+ }
+
 /* MAIN HOME CONTAINER */
 
 .home-view {
@@ -68,6 +77,13 @@ nav {
   width: 50px;
 }
 
+.favorites-menu {
+  background-color: rgba(225, 225, 225, .9);
+  width: 40vw;
+  height: 35vw;
+  overflow: auto;
+}
+
 /*ADD NEW RECIPE MENU*/
 
 .recipe-submission-menu {
@@ -79,6 +95,12 @@ nav {
   display: flex;
   justify-content: flex-start;
 }
+
+.error-message {
+  color: red;
+}
+
+
 
 /* font-family: 'Roboto', sans-serif;
 COLORS
