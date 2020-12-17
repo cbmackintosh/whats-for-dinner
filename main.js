@@ -32,6 +32,7 @@ var submitMealErrorMessage = document.querySelector('.error-message')
 var exitSubmitMenu = document.querySelector('.exit-submit-menu');
 
 var exitFavsMenu = document.querySelector('.exit-favs-menu')
+var favoritesList = document.querySelector('.favorites-list')
 
 letsCook.addEventListener('click', displayMeal);
 clearButton.addEventListener('click', resetDefaultView)
@@ -88,6 +89,13 @@ function displayFavoritesView() {
   hideElement(homeMenu);
   hideElement(mealDisplay);
   showElement(favoritesMenu);
+  listFavorites();
+}
+
+function listFavorites() {
+  for (i = 0; i < favorites.length; i++) {
+    favoritesList.innerHTML += `<li>${favorites[i]}</li>`
+  }
 }
 
 function displayRecipeSubmissionForm() {
