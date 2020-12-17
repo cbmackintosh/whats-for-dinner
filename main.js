@@ -14,8 +14,13 @@ var foodLog = document.querySelector('.food-log')
 var foodMessage = document.querySelector('.food-message');
 var clearButton = document.querySelector('.clear-button');
 
+var addARecipeButton = document.querySelector('.add-a-recipe')
+var recipeSubmissionMenu = document.querySelector('.recipe-submission-menu')
+
 letsCook.addEventListener('click', displayMeal);
 clearButton.addEventListener('click', resetDefaultView)
+addARecipeButton.addEventListener('click', displayRecipeSubmissionForm)
+
 
 function displayMeal() {
   if (findSideDish.checked === true) {
@@ -51,6 +56,10 @@ function resetDefaultView() {
   hideElement(foodMessage)
   hideElement(foodLog)
   hideElement(clearButton)
+}
+
+function displayRecipeSubmissionForm() {
+  showElement(recipeSubmissionMenu)
 }
 
 // HELPER FUNCTIONS:

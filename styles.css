@@ -17,6 +17,10 @@ button {
   height: 7vh;
 }
 
+.hidden {
+  display: none;
+}
+
 /*NAV BAR*/
 
 nav {
@@ -27,14 +31,12 @@ nav {
   padding: 1vh;
 }
 
-.hidden {
-  display: none;
-}
-
 .nav-bar-heading {
   font-family: 'Roboto', sans-serif;
   vertical-align: middle;
  }
+
+/* MAIN HOME CONTAINER */
 
 .home-view {
   display: flex;
@@ -43,12 +45,16 @@ nav {
   padding: 5vh;
 }
 
+
+
 .home-menu {
   background-color: rgba(225, 225, 225, .9);
   width: 40vw;
   height: 35vw;
   overflow: auto;
 }
+
+/* MEAL DISPLAY*/
 
 .meal-display {
   background-color: rgba(225, 225, 225, .9);
@@ -57,6 +63,21 @@ nav {
   overflow: auto;
 }
 
+.cookpot {
+  height: 50px;
+  width: 50px;
+}
+
+/*ADD NEW RECIPE MENU*/
+
+.recipe-submission-menu {
+  display: flex;
+  background-color: rgba(225, 225, 225, .9);
+  height: 7%;
+  bottom: 0;
+  width: 100%;
+  position: absolute;
+}
 
 /* font-family: 'Roboto', sans-serif;
 COLORS
