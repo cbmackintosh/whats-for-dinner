@@ -9,17 +9,23 @@ var findDessert = document.querySelector('#desserts-button');
 var findEntireMeal = document.querySelector('#entire-meal-button');
 
 var letsCook = document.querySelector('.lets-cook');
-var cookpot = document.querySelector('.cookpot')
-var foodLog = document.querySelector('.food-log')
+var cookpot = document.querySelector('.cookpot');
+var foodLog = document.querySelector('.food-log');
 var foodMessage = document.querySelector('.food-message');
 var clearButton = document.querySelector('.clear-button');
 
-var addARecipeButton = document.querySelector('.add-a-recipe')
-var recipeSubmissionMenu = document.querySelector('.recipe-submission-menu-container')
+var addARecipeButton = document.querySelector('.add-a-recipe');
+var recipeSubmissionMenu = document.querySelector('.recipe-submission-menu-container');
+var recipeSubmissionField = document.querySelector('.recipe-submission-field');
+var submitNewRecipeButton = document.querySelector('.submit-new-recipe-button');
+var submitNewSide = document.querySelector('.submit-side');
+var submitNewMain = document.querySelector('.submit-main');
+var submitNewDessert = document.querySelector('.submit-dessert');
 
 letsCook.addEventListener('click', displayMeal);
 clearButton.addEventListener('click', resetDefaultView)
 addARecipeButton.addEventListener('click', displayRecipeSubmissionForm)
+submitNewRecipeButton.addEventListener('click', pushUserRecipe)
 
 
 function displayMeal() {
@@ -60,6 +66,18 @@ function resetDefaultView() {
 
 function displayRecipeSubmissionForm() {
   showElement(recipeSubmissionMenu)
+}
+
+function pushUserRecipe() {
+  if (submitNewSide.checked === true) {
+    sides.push(recipeSubmissionField.value);
+  } else if (submitNewMain.checked === true) {
+    mains.push(recipeSubmissionField.value);
+  } else if (submitNewDessert.checked === true) {
+    desserts.push(recipeSubmissionField.value);
+  } else {
+    return;
+  }
 }
 
 // HELPER FUNCTIONS:
