@@ -4,25 +4,25 @@ var mains = ['Spaghetti and Meatballs', 'Pineapple Chicken', 'Shakshuka', 'Thai 
 var desserts = ['Apple Pie', 'Lemon Meringue Pie', 'Black Forest Cake', 'Banana Bread', 'Peach Cobbler', 'Cheesecake', 'Funfetti Cake', 'Baklava', 'Flan', 'Macarons', 'Macaroons', 'Chocolate', 'Cupcakes', 'Pavlova', 'Pumpkin Pie', 'Key Lime Pie', 'Tart Tatin', 'Croissants', 'Eclairs'];
 var favorites = []
 
-var findSideDish = document.querySelector('#side-button');
-var findMainDish = document.querySelector('#mains-button');
-var findDessert = document.querySelector('#desserts-button');
-var findEntireMeal = document.querySelector('#entire-meal-button');
-
 var homeMenu = document.querySelector('.home-menu')
 var mealDisplay = document.querySelector('.meal-display')
 var favoritesMenu = document.querySelector('.favorites-menu')
 
+var navBarButtons = document.querySelector('.nav-bar-buttons');
+var viewFavorites = document.querySelector('.view-favorites');
+var addARecipeButton = document.querySelector('.add-a-recipe');
+
+var findSideDish = document.querySelector('#side-button');
+var findMainDish = document.querySelector('#mains-button');
+var findDessert = document.querySelector('#desserts-button');
+var findEntireMeal = document.querySelector('#entire-meal-button');
 var letsCook = document.querySelector('.lets-cook');
+
 var cookpot = document.querySelector('.cookpot');
 var foodLog = document.querySelector('.food-log');
 var foodMessage = document.querySelector('.food-message');
 var clearButton = document.querySelector('.clear-button');
 var removeRecipeButton = document.querySelector('.remove-recipe');
-var addARecipeButton = document.querySelector('.add-a-recipe');
-
-var navBarButtons = document.querySelector('.nav-bar-buttons');
-var viewFavorites = document.querySelector('.view-favorites');
 var addFavoriteButton = document.querySelector('.add-favorite');
 
 var recipeSubmissionMenu = document.querySelector('.recipe-submission-menu-container');
@@ -37,6 +37,7 @@ var exitSubmitMenu = document.querySelector('.exit-submit-menu');
 var exitFavsMenu = document.querySelector('.exit-favs-menu')
 var favoritesList = document.querySelector('.favorites-list')
 
+window.addEventListener('load', resetDefaultView);
 letsCook.addEventListener('click', displayMeal);
 clearButton.addEventListener('click', resetDefaultView);
 addARecipeButton.addEventListener('click', displayRecipeSubmissionForm);
@@ -56,13 +57,13 @@ function displayMeal() {
   } else if (findDessert.checked === true) {
     meal = findRandomSingleDish(desserts);
   } else if (findEntireMeal.checked === true) {
-    meal = `${findRandomSingleDish(mains)} with a side of ${findRandomSingleDish(sides)} and ${findRandomSingleDish(desserts)} for dessert!`
+    meal = `${findRandomSingleDish(mains)} with a side of ${meal = findRandomSingleDish(sides)} and ${findRandomSingleDish(desserts)} for dessert!`;
   } else {
     return;
   }
   foodLog.innerText = meal;
   displayMealView()
-  resetRadioButtons([findSideDish, findMainDish, findDessert, findEntireMeal])
+  resetRadioButtons([findSideDish, findMainDish, findDessert, findEntireMeal]);
 }
 
 function findRandomSingleDish(course) {
@@ -71,7 +72,8 @@ function findRandomSingleDish(course) {
 
 function displayMealView() {
   hideElement([cookpot])
-  showElement([foodLog, foodMessage, clearButton, addFavoriteButton, removeRecipeButton])
+  showElement([foodLog, foodMessage, clearButton, addFavoriteButton, removeRecipeButton]);
+  letsCook.disabled = true;
 }
 
 function hideMealDisplay() {
@@ -84,7 +86,13 @@ function resetDefaultView() {
   resetRadioButtons([findSideDish, findMainDish, findDessert, findEntireMeal]);
   hideMealDisplay();
   resetForm();
+  letsCook.disabled = true;
+  addEventListenersToNodeList('.meal-option-button', 'click', enableLetsCookButton)
   favoritesList.innerHTML = '';
+}
+
+function enableLetsCookButton() {
+  letsCook.disabled = false;
 }
 
 function removeRecipeFunc() {
@@ -102,12 +110,6 @@ function displayRecipeSubmissionForm() {
 }
 
 function pushUserRecipe() {
-  // declare variable set to user input in field
-  // call new function
-  // check for dups, if not {}
-  // array.push((recipeSubmissionField.value.toUpperCase())
-  // display meal view func
-  // foodLog.innerText =
   if (submitNewSide.checked === true && checkArrayForDups(sides, recipeSubmissionField.value) === false) {
     sides.push(convertToTitleCase(recipeSubmissionField.value));
     foodLog.innerText = convertToTitleCase(recipeSubmissionField.value);
@@ -121,11 +123,11 @@ function pushUserRecipe() {
     foodLog.innerText = convertToTitleCase(recipeSubmissionField.value);
     displayMealView()
   } else {
-    return;
+    foodLog.innerText = 'This recipe is already on file.';
+    displayMealView();
+    hideElement([foodMessage]);
   }
 }
-
-// function to access the array of selected radio button
 
 function resetForm() {
   resetRadioButtons([submitNewSide, submitNewMain,submitNewDessert]);
@@ -144,11 +146,9 @@ function listFavorites() {
   for (i = 0; i < favorites.length; i++) {
     favoritesList.innerHTML += `<li>${favorites[i]}<button class= 'delete-fav' id=${[i]}>DELETE</button></li>`
   }
-  var listItems = document.querySelectorAll('.delete-fav');
-  for (i = 0; i < listItems.length; i++) {
-    listItems[i].addEventListener('click', deleteFavRecipe);
-  }
+  addEventListenersToNodeList('.delete-fav', 'click', deleteFavRecipe)
 }
+
 
 function deleteFavRecipe() {
   favorites.splice(event.target.closest('.delete-fav').id, 1);
@@ -165,6 +165,13 @@ function pushRecipeToFavs() {
 }
 
 // HELPER FUNCTIONS:
+
+function addEventListenersToNodeList(targetClass, event, functionName) {
+  var nodeList = document.querySelectorAll(targetClass);
+  for (i = 0; i < nodeList.length; i++) {
+    nodeList[i].addEventListener(event, functionName);
+  }
+}
 
 function convertToTitleCase(string) {
   string = string.toLowerCase().split(' ');
