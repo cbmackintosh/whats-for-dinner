@@ -61,8 +61,27 @@ nav {
   overflow: auto;
 }
 
+.home-menu-heading {
+  font-size: 3vw;
+  font-family: 'Roboto', sans-serif;
+  margin: 1em;
+}
+
+.lets-cook {
+  background-color: #0fb9b1;
+  width: 15vw;
+  height: 5vh;
+  font-size: 1.5vw;
+}
+
 .meal-selection-options {
   list-style: none;
+  font-size: 1em;
+}
+
+.meal-selection-options {
+  font-size: 2vw;
+  font-family: 'Roboto', sans-serif;
 }
 
 /* MEAL DISPLAY*/
@@ -75,9 +94,62 @@ nav {
 }
 
 .cookpot {
-  height: 50px;
-  width: 50px;
+  height: 30vh;
+  width: 30vw;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  margin-top: 17vh;
+  margin-bottom: 17vh;
 }
+
+.food-message {
+  font-style: italic;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  margin-top: 10vw;
+  margin-bottom: 0vh;
+  font-size: 1vw;
+}
+
+.food-log {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  font-size: 3vw;
+  margin-top: 0%;
+  margin-left: 1vw;
+  margin-right: 1vw;
+}
+
+.clear-button {
+  background-color: #95a5a6;
+  color: white;
+  margin-left: 20vw;
+  margin-right: 0.5vw;
+  width: 5vw;
+  height: 5vh;
+  font-size: 1vw;
+}
+
+.add-favorite {
+  background-color: #95a5a6;
+  color: white;
+  margin-right: 0.5vw;
+  width: 5vw;
+  height: 5vh;
+  font-size: 0.75vw;
+}
+
+.remove-recipe {
+  background-color: #95a5a6;
+  color: white;
+  margin-right: 0.5vw;
+  width: 5vw;
+  height: 5vh;
+  font-size: 0.75vw;
+}
+
+/* FAVORITES MENU */
 
 .favorites-menu {
   background-color: rgba(225, 225, 225, .9);
