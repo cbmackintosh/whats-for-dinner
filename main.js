@@ -62,7 +62,7 @@ function displayMeal() {
   }
   foodLog.innerText = meal;
   displayMealView()
-  resetRadioButtons()
+  resetRadioButtons([findSideDish, findMainDish, findDessert, findEntireMeal])
 }
 
 function findRandomSingleDish(course) {
@@ -81,8 +81,8 @@ function hideMealDisplay() {
 function resetDefaultView() {
   showElement([homeMenu, mealDisplay, cookpot, navBarButtons]);
   hideElement([addFavoriteButton,favoritesMenu,recipeSubmissionMenu]);
-  hideMealDisplay(); // IS THIS REDUNDANT?
-  resetRadioButtons();
+  resetRadioButtons([findSideDish, findMainDish, findDessert, findEntireMeal]);
+  hideMealDisplay();
   resetForm();
   favoritesList.innerHTML = '';
 }
@@ -92,7 +92,7 @@ function removeRecipeFunc() {
   spliceElementFromArray(mains, foodLog.innerText);
   spliceElementFromArray(desserts, foodLog.innerText);
   foodLog.innerText = 'RECIPE REMOVED'
-  hideElement(foodMessage);
+  hideElement([foodMessage, addFavoriteButton]);
 }
 
 //USER SUBMITTED RECIPE FORM
@@ -128,9 +128,7 @@ function pushUserRecipe() {
 // function to access the array of selected radio button
 
 function resetForm() {
-  submitNewSide.checked = false;
-  submitNewMain.checked = false;
-  submitNewDessert.checked = false;
+  resetRadioButtons([submitNewSide, submitNewMain,submitNewDessert]);
   recipeSubmissionField.value = '';
 }
 
@@ -161,6 +159,8 @@ function deleteFavRecipe() {
 function pushRecipeToFavs() {
   if (checkArrayForDups(favorites, foodLog.innerText) === false) {
     favorites.push(foodLog.innerText);
+  } else {
+    foodLog.innerText = 'This recipe is already in your favorites.';
   }
 }
 
@@ -200,9 +200,8 @@ function showElement(elements) {
   }
 }
 
-function resetRadioButtons() {
-  findSideDish.checked = false;
-  findMainDish.checked = false;
-  findDessert.checked = false;
-  findEntireMeal.checked = false;
+function resetRadioButtons(buttons) {
+  for (i = 0; i < buttons.length; i++) {
+    buttons[i].checked = false;
+  }
 }
