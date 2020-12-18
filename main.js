@@ -1,7 +1,7 @@
 
-var sides = ['MISO GLAZED CARROTS', 'COLESLAW', 'GARDEN SALAD', 'CRISPY POTATOES', 'SWEET POTATO TOTS', 'COCONUT RICE', 'CAESER SALAD', 'SHRIMP SUMMER ROLLS', 'GARLIC BUTTER MUSHROOMS', 'HUSH PUPPIES'];
-var mains = ['SPAGHETTI AND MEATBALLS', 'PINEAPPLE CHICKEN', 'SHAKSHUKA', 'THAI YELLOW CURRY', 'BIBIMBAP', 'CHICKEN PARMESEAN', 'BUTTERNUT SQUASH SOUP', 'BBQ CHICKEN BURGERS', 'RAMEN', 'EMPANADAS', 'CHICKEN FRIED RICE', 'SHEET PAN FAJITAS', 'MARGARITA PIZZA'];
-var desserts = ['APPLE PIE', 'LEMON MERINGUE PIE', 'BLACK FOREST CAKE', 'BANANA BREAD', 'PEACH COBBLER', 'CHEESECAKE', 'FUNFETTI CAKE', 'BAKLAVA', 'FLAN', 'MACARONS', 'MACAROONS', 'CHOCOLATE CUPCAKES', 'PAVLOVA', 'PUMPKIN PIE', 'KEY LIME PIE', 'TART TATIN', 'CROISSANTS', 'ECLAIRS'];
+var sides = ['Miso Glazed Carrots', 'Coleslaw', 'Garden Salad', 'Crispy Potatoes', 'Sweet Potato', 'Tots', 'Coconut Rice', 'Caeser Salad', 'Shrimp Summer Rolls', 'Garlic Butter Mushrooms', 'Hush Puppies'];
+var mains = ['Spaghetti and Meatballs', 'Pineapple Chicken', 'Shakshuka', 'Thai Yellow Curry', 'Bibimbap', 'Chicken Parmesean', 'Butternut Squash Soup', 'BBQ Chicken Burgers', 'Ramen', 'Empanadas', 'Chicken Fried Rice', 'Sheet Pan Fajitas', 'Margarita Pizza'];
+var desserts = ['Apple Pie', 'Lemon Meringue Pie', 'Black Forest Cake', 'Banana Bread', 'Peach Cobbler', 'Cheesecake', 'Funfetti Cake', 'Baklava', 'Flan', 'Macarons', 'Macaroons', 'Chocolate', 'Cupcakes', 'Pavlova', 'Pumpkin Pie', 'Key Lime Pie', 'Tart Tatin', 'Croissants', 'Eclairs'];
 var favorites = []
 
 var findSideDish = document.querySelector('#side-button');
@@ -48,52 +48,41 @@ exitSubmitMenu.addEventListener('click', resetDefaultView);
 removeRecipeButton.addEventListener('click', removeRecipeFunc);
 
 function displayMeal() {
+  var meal;
   if (findSideDish.checked === true) {
-    findRandomSingleDish(sides);
+    meal = findRandomSingleDish(sides);
   } else if (findMainDish.checked === true) {
-    findRandomSingleDish(mains);
+    meal = findRandomSingleDish(mains);
   } else if (findDessert.checked === true) {
-    findRandomSingleDish(desserts);
+    meal = findRandomSingleDish(desserts);
   } else if (findEntireMeal.checked === true) {
-    foodLog.innerText = `${mains[Math.floor(Math.random() * mains.length)]} with a side of ${sides[Math.floor(Math.random() * sides.length)]} and ${desserts[Math.floor(Math.random() * desserts.length)]} for dessert!`
-    displayMealView()
+    meal = `${findRandomSingleDish(mains)} with a side of ${findRandomSingleDish(sides)} and ${findRandomSingleDish(desserts)} for dessert!`
   } else {
     return;
   }
+  foodLog.innerText = meal;
+  displayMealView()
   resetRadioButtons()
 }
 
 function findRandomSingleDish(course) {
-  foodLog.innerText = course[Math.floor(Math.random() * course.length)];
-  displayMealView()
+  return course[Math.floor(Math.random() * course.length)];
 }
 
 function displayMealView() {
-  hideElement(cookpot)
-  showElement(foodLog)
-  showElement(foodMessage)
-  showElement(clearButton)
-  showElement(addFavoriteButton)
-  showElement(removeRecipeButton)
+  hideElement([cookpot])
+  showElement([foodLog, foodMessage, clearButton, addFavoriteButton, removeRecipeButton])
 }
 
 function hideMealDisplay() {
-  hideElement(foodMessage)
-  hideElement(foodLog)
-  hideElement(clearButton)
-  hideElement(removeRecipeButton);
+  hideElement([foodMessage, foodLog, clearButton, removeRecipeButton]);
 }
 
 function resetDefaultView() {
-  showElement(homeMenu);
-  showElement(mealDisplay);
+  showElement([homeMenu, mealDisplay, cookpot, navBarButtons]);
+  hideElement([addFavoriteButton,favoritesMenu,recipeSubmissionMenu]);
+  hideMealDisplay(); // IS THIS REDUNDANT?
   resetRadioButtons();
-  showElement(cookpot);
-  hideMealDisplay();
-  hideElement(addFavoriteButton);
-  hideElement(favoritesMenu);
-  hideElement(recipeSubmissionMenu);
-  showElement(navBarButtons);
   resetForm();
   favoritesList.innerHTML = '';
 }
@@ -109,26 +98,34 @@ function removeRecipeFunc() {
 //USER SUBMITTED RECIPE FORM
 
 function displayRecipeSubmissionForm() {
-  showElement(recipeSubmissionMenu);
+  showElement([recipeSubmissionMenu]);
 }
 
 function pushUserRecipe() {
+  // declare variable set to user input in field
+  // call new function
+  // check for dups, if not {}
+  // array.push((recipeSubmissionField.value.toUpperCase())
+  // display meal view func
+  // foodLog.innerText =
   if (submitNewSide.checked === true && checkArrayForDups(sides, recipeSubmissionField.value) === false) {
-    sides.push(recipeSubmissionField.value.toUpperCase());
-    foodLog.innerText = recipeSubmissionField.value.toUpperCase();
+    sides.push(convertToTitleCase(recipeSubmissionField.value));
+    foodLog.innerText = convertToTitleCase(recipeSubmissionField.value);
     displayMealView()
   } else if (submitNewMain.checked === true && checkArrayForDups(mains, recipeSubmissionField.value) === false) {
-    mains.push(recipeSubmissionField.value.toUpperCase());
-    foodLog.innerText = recipeSubmissionField.value.toUpperCase();
+    mains.push(convertToTitleCase(recipeSubmissionField.value));
+    foodLog.innerText = convertToTitleCase(recipeSubmissionField.value);
     displayMealView()
   } else if (submitNewDessert.checked === true && checkArrayForDups(desserts, recipeSubmissionField.value) === false) {
-    desserts.push(recipeSubmissionField.value.toUpperCase());
-    foodLog.innerText = recipeSubmissionField.value.toUpperCase();
+    desserts.push(convertToTitleCase(recipeSubmissionField.value));
+    foodLog.innerText = convertToTitleCase(recipeSubmissionField.value);
     displayMealView()
   } else {
     return;
   }
 }
+
+// function to access the array of selected radio button
 
 function resetForm() {
   submitNewSide.checked = false;
@@ -140,11 +137,8 @@ function resetForm() {
 //FAVORITES MENU
 
 function displayFavoritesView() {
-  hideElement(homeMenu);
-  hideElement(recipeSubmissionMenu);
-  hideElement(mealDisplay);
-  showElement(favoritesMenu);
-  hideElement(navBarButtons)
+  hideElement([homeMenu, recipeSubmissionMenu, mealDisplay, navBarButtons])
+  showElement([favoritesMenu]);
   listFavorites();
 }
 
@@ -161,7 +155,7 @@ function listFavorites() {
 function deleteFavRecipe() {
   favorites.splice(event.target.closest('.delete-fav').id, 1);
   favoritesList.innerHTML = '';
-  displayFavoritesView()
+  displayFavoritesView();
 }
 
 function pushRecipeToFavs() {
@@ -172,30 +166,38 @@ function pushRecipeToFavs() {
 
 // HELPER FUNCTIONS:
 
-function checkArrayForDups(array, string) {
-  for (i = 0; i < array.length; i++) {
-    if (array[i] == string.toUpperCase()) {
-      return true;
-    }
+function convertToTitleCase(string) {
+  string = string.toLowerCase().split(' ');
+  for (i = 0; i < string.length; i++) {
+    string[i] = string[i][0].toUpperCase() + string[i].slice(1);
   }
-  return false;
+  return string.join(' ');
+}
+
+function checkArrayForDups(array, string) {
+  if (array.includes(convertToTitleCase(string))) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function spliceElementFromArray(array, string) {
-  for (i = 0; i < array.length; i++) {
-    if (array[i] === string) {
-      array.splice(i, 1);
-      return;
-    }
+  if (array.includes(string)) {
+    array.splice(array.indexOf(string), 1);
   }
 }
 
-function hideElement(element) {
-  element.classList.add('hidden');
+function hideElement(elements) {
+  for (i = 0; i < elements.length; i++) {
+    elements[i].classList.add('hidden');
+  }
 }
 
-function showElement(element) {
-  element.classList.remove('hidden');
+function showElement(elements) {
+  for (i = 0; i < elements.length; i++) {
+    elements[i].classList.remove('hidden');
+  }
 }
 
 function resetRadioButtons() {
