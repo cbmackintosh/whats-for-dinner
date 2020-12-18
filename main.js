@@ -1,28 +1,28 @@
 
-var sides = ['MISO GLAZED CARROTS', 'COLESLAW', 'GARDEN SALAD', 'CRISPY POTATOES', 'SWEET POTATO TOTS', 'COCONUT RICE', 'CAESER SALAD', 'SHRIMP SUMMER ROLLS', 'GARLIC BUTTER MUSHROOMS', 'HUSH PUPPIES'];
-var mains = ['SPAGHETTI AND MEATBALLS', 'PINEAPPLE CHICKEN', 'SHAKSHUKA', 'THAI YELLOW CURRY', 'BIBIMBAP', 'CHICKEN PARMESEAN', 'BUTTERNUT SQUASH SOUP', 'BBQ CHICKEN BURGERS', 'RAMEN', 'EMPANADAS', 'CHICKEN FRIED RICE', 'SHEET PAN FAJITAS', 'MARGARITA PIZZA'];
-var desserts = ['APPLE PIE', 'LEMON MERINGUE PIE', 'BLACK FOREST CAKE', 'BANANA BREAD', 'PEACH COBBLER', 'CHEESECAKE', 'FUNFETTI CAKE', 'BAKLAVA', 'FLAN', 'MACARONS', 'MACAROONS', 'CHOCOLATE CUPCAKES', 'PAVLOVA', 'PUMPKIN PIE', 'KEY LIME PIE', 'TART TATIN', 'CROISSANTS', 'ECLAIRS'];
+var sides = ['Miso Glazed Carrots', 'Coleslaw', 'Garden Salad', 'Crispy Potatoes', 'Sweet Potato', 'Tots', 'Coconut Rice', 'Caeser Salad', 'Shrimp Summer Rolls', 'Garlic Butter Mushrooms', 'Hush Puppies'];
+var mains = ['Spaghetti and Meatballs', 'Pineapple Chicken', 'Shakshuka', 'Thai Yellow Curry', 'Bibimbap', 'Chicken Parmesean', 'Butternut Squash Soup', 'BBQ Chicken Burgers', 'Ramen', 'Empanadas', 'Chicken Fried Rice', 'Sheet Pan Fajitas', 'Margarita Pizza'];
+var desserts = ['Apple Pie', 'Lemon Meringue Pie', 'Black Forest Cake', 'Banana Bread', 'Peach Cobbler', 'Cheesecake', 'Funfetti Cake', 'Baklava', 'Flan', 'Macarons', 'Macaroons', 'Chocolate', 'Cupcakes', 'Pavlova', 'Pumpkin Pie', 'Key Lime Pie', 'Tart Tatin', 'Croissants', 'Eclairs'];
 var favorites = []
-
-var findSideDish = document.querySelector('#side-button');
-var findMainDish = document.querySelector('#mains-button');
-var findDessert = document.querySelector('#desserts-button');
-var findEntireMeal = document.querySelector('#entire-meal-button');
 
 var homeMenu = document.querySelector('.home-menu')
 var mealDisplay = document.querySelector('.meal-display')
 var favoritesMenu = document.querySelector('.favorites-menu')
 
+var navBarButtons = document.querySelector('.nav-bar-buttons');
+var viewFavorites = document.querySelector('.view-favorites');
+var addARecipeButton = document.querySelector('.add-a-recipe');
+
+var findSideDish = document.querySelector('#side-button');
+var findMainDish = document.querySelector('#mains-button');
+var findDessert = document.querySelector('#desserts-button');
+var findEntireMeal = document.querySelector('#entire-meal-button');
 var letsCook = document.querySelector('.lets-cook');
+
 var cookpot = document.querySelector('.cookpot');
 var foodLog = document.querySelector('.food-log');
 var foodMessage = document.querySelector('.food-message');
 var clearButton = document.querySelector('.clear-button');
 var removeRecipeButton = document.querySelector('.remove-recipe');
-var addARecipeButton = document.querySelector('.add-a-recipe');
-
-var navBarButtons = document.querySelector('.nav-bar-buttons');
-var viewFavorites = document.querySelector('.view-favorites');
 var addFavoriteButton = document.querySelector('.add-favorite');
 
 var recipeSubmissionMenu = document.querySelector('.recipe-submission-menu-container');
@@ -37,6 +37,7 @@ var exitSubmitMenu = document.querySelector('.exit-submit-menu');
 var exitFavsMenu = document.querySelector('.exit-favs-menu')
 var favoritesList = document.querySelector('.favorites-list')
 
+window.addEventListener('load', resetDefaultView);
 letsCook.addEventListener('click', displayMeal);
 clearButton.addEventListener('click', resetDefaultView);
 addARecipeButton.addEventListener('click', displayRecipeSubmissionForm);
@@ -48,54 +49,50 @@ exitSubmitMenu.addEventListener('click', resetDefaultView);
 removeRecipeButton.addEventListener('click', removeRecipeFunc);
 
 function displayMeal() {
+  var meal;
   if (findSideDish.checked === true) {
-    findRandomSingleDish(sides);
+    meal = findRandomSingleDish(sides);
   } else if (findMainDish.checked === true) {
-    findRandomSingleDish(mains);
+    meal = findRandomSingleDish(mains);
   } else if (findDessert.checked === true) {
-    findRandomSingleDish(desserts);
+    meal = findRandomSingleDish(desserts);
   } else if (findEntireMeal.checked === true) {
-    foodLog.innerText = `${mains[Math.floor(Math.random() * mains.length)]} with a side of ${sides[Math.floor(Math.random() * sides.length)]} and ${desserts[Math.floor(Math.random() * desserts.length)]} for dessert!`
-    displayMealView()
+    meal = `${findRandomSingleDish(mains)} with a side of ${meal = findRandomSingleDish(sides)} and ${findRandomSingleDish(desserts)} for dessert!`;
   } else {
     return;
   }
-  resetRadioButtons()
+  foodLog.innerText = meal;
+  displayMealView()
+  resetRadioButtons([findSideDish, findMainDish, findDessert, findEntireMeal]);
 }
 
 function findRandomSingleDish(course) {
-  foodLog.innerText = course[Math.floor(Math.random() * course.length)];
-  displayMealView()
+  return course[Math.floor(Math.random() * course.length)];
 }
 
 function displayMealView() {
-  hideElement(cookpot)
-  showElement(foodLog)
-  showElement(foodMessage)
-  showElement(clearButton)
-  showElement(addFavoriteButton)
-  showElement(removeRecipeButton)
+  hideElement([cookpot])
+  showElement([foodLog, foodMessage, clearButton, addFavoriteButton, removeRecipeButton]);
+  letsCook.disabled = true;
 }
 
 function hideMealDisplay() {
-  hideElement(foodMessage)
-  hideElement(foodLog)
-  hideElement(clearButton)
-  hideElement(removeRecipeButton);
+  hideElement([foodMessage, foodLog, clearButton, removeRecipeButton]);
 }
 
 function resetDefaultView() {
-  showElement(homeMenu);
-  showElement(mealDisplay);
-  resetRadioButtons();
-  showElement(cookpot);
+  showElement([homeMenu, mealDisplay, cookpot, navBarButtons]);
+  hideElement([addFavoriteButton,favoritesMenu,recipeSubmissionMenu]);
+  resetRadioButtons([findSideDish, findMainDish, findDessert, findEntireMeal]);
   hideMealDisplay();
-  hideElement(addFavoriteButton);
-  hideElement(favoritesMenu);
-  hideElement(recipeSubmissionMenu);
-  showElement(navBarButtons);
   resetForm();
+  letsCook.disabled = true;
+  addEventListenersToNodeList('.meal-option-button', 'click', enableLetsCookButton)
   favoritesList.innerHTML = '';
+}
+
+function enableLetsCookButton() {
+  letsCook.disabled = false;
 }
 
 function removeRecipeFunc() {
@@ -103,48 +100,45 @@ function removeRecipeFunc() {
   spliceElementFromArray(mains, foodLog.innerText);
   spliceElementFromArray(desserts, foodLog.innerText);
   foodLog.innerText = 'RECIPE REMOVED'
-  hideElement(foodMessage);
+  hideElement([foodMessage, addFavoriteButton]);
 }
 
 //USER SUBMITTED RECIPE FORM
 
 function displayRecipeSubmissionForm() {
-  showElement(recipeSubmissionMenu);
+  showElement([recipeSubmissionMenu]);
 }
 
 function pushUserRecipe() {
   if (submitNewSide.checked === true && checkArrayForDups(sides, recipeSubmissionField.value) === false) {
-    sides.push(recipeSubmissionField.value.toUpperCase());
-    foodLog.innerText = recipeSubmissionField.value.toUpperCase();
+    sides.push(convertToTitleCase(recipeSubmissionField.value));
+    foodLog.innerText = convertToTitleCase(recipeSubmissionField.value);
     displayMealView()
   } else if (submitNewMain.checked === true && checkArrayForDups(mains, recipeSubmissionField.value) === false) {
-    mains.push(recipeSubmissionField.value.toUpperCase());
-    foodLog.innerText = recipeSubmissionField.value.toUpperCase();
+    mains.push(convertToTitleCase(recipeSubmissionField.value));
+    foodLog.innerText = convertToTitleCase(recipeSubmissionField.value);
     displayMealView()
   } else if (submitNewDessert.checked === true && checkArrayForDups(desserts, recipeSubmissionField.value) === false) {
-    desserts.push(recipeSubmissionField.value.toUpperCase());
-    foodLog.innerText = recipeSubmissionField.value.toUpperCase();
+    desserts.push(convertToTitleCase(recipeSubmissionField.value));
+    foodLog.innerText = convertToTitleCase(recipeSubmissionField.value);
     displayMealView()
   } else {
-    return;
+    foodLog.innerText = 'This recipe is already on file.';
+    displayMealView();
+    hideElement([foodMessage]);
   }
 }
 
 function resetForm() {
-  submitNewSide.checked = false;
-  submitNewMain.checked = false;
-  submitNewDessert.checked = false;
+  resetRadioButtons([submitNewSide, submitNewMain,submitNewDessert]);
   recipeSubmissionField.value = '';
 }
 
 //FAVORITES MENU
 
 function displayFavoritesView() {
-  hideElement(homeMenu);
-  hideElement(recipeSubmissionMenu);
-  hideElement(mealDisplay);
-  showElement(favoritesMenu);
-  hideElement(navBarButtons)
+  hideElement([homeMenu, recipeSubmissionMenu, mealDisplay, navBarButtons])
+  showElement([favoritesMenu]);
   listFavorites();
 }
 
@@ -152,55 +146,69 @@ function listFavorites() {
   for (i = 0; i < favorites.length; i++) {
     favoritesList.innerHTML += `<li>${favorites[i]}<button class= 'delete-fav' id=${[i]}>DELETE</button></li>`
   }
-  var listItems = document.querySelectorAll('.delete-fav');
-  for (i = 0; i < listItems.length; i++) {
-    listItems[i].addEventListener('click', deleteFavRecipe);
-  }
+  addEventListenersToNodeList('.delete-fav', 'click', deleteFavRecipe)
 }
+
 
 function deleteFavRecipe() {
   favorites.splice(event.target.closest('.delete-fav').id, 1);
   favoritesList.innerHTML = '';
-  displayFavoritesView()
+  displayFavoritesView();
 }
 
 function pushRecipeToFavs() {
   if (checkArrayForDups(favorites, foodLog.innerText) === false) {
     favorites.push(foodLog.innerText);
+  } else {
+    foodLog.innerText = 'This recipe is already in your favorites.';
   }
 }
 
 // HELPER FUNCTIONS:
 
-function checkArrayForDups(array, string) {
-  for (i = 0; i < array.length; i++) {
-    if (array[i] == string.toUpperCase()) {
-      return true;
-    }
+function addEventListenersToNodeList(targetClass, event, functionName) {
+  var nodeList = document.querySelectorAll(targetClass);
+  for (i = 0; i < nodeList.length; i++) {
+    nodeList[i].addEventListener(event, functionName);
   }
-  return false;
+}
+
+function convertToTitleCase(string) {
+  string = string.toLowerCase().split(' ');
+  for (i = 0; i < string.length; i++) {
+    string[i] = string[i][0].toUpperCase() + string[i].slice(1);
+  }
+  return string.join(' ');
+}
+
+function checkArrayForDups(array, string) {
+  if (array.includes(convertToTitleCase(string))) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function spliceElementFromArray(array, string) {
-  for (i = 0; i < array.length; i++) {
-    if (array[i] === string) {
-      array.splice(i, 1);
-      return;
-    }
+  if (array.includes(string)) {
+    array.splice(array.indexOf(string), 1);
   }
 }
 
-function hideElement(element) {
-  element.classList.add('hidden');
+function hideElement(elements) {
+  for (i = 0; i < elements.length; i++) {
+    elements[i].classList.add('hidden');
+  }
 }
 
-function showElement(element) {
-  element.classList.remove('hidden');
+function showElement(elements) {
+  for (i = 0; i < elements.length; i++) {
+    elements[i].classList.remove('hidden');
+  }
 }
 
-function resetRadioButtons() {
-  findSideDish.checked = false;
-  findMainDish.checked = false;
-  findDessert.checked = false;
-  findEntireMeal.checked = false;
+function resetRadioButtons(buttons) {
+  for (i = 0; i < buttons.length; i++) {
+    buttons[i].checked = false;
+  }
 }
