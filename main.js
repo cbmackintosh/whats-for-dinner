@@ -159,8 +159,11 @@ function deleteFavRecipe() {
 function pushRecipeToFavs() {
   if (checkArrayForDups(favorites, foodLog.innerText) === false) {
     favorites.push(foodLog.innerText);
+    foodLog.innerText = 'Recipe added to favorites.'
+    hideElement([foodMessage, addFavoriteButton])
   } else {
     foodLog.innerText = 'This recipe is already in your favorites.';
+    hideElement([foodMessage, addFavoriteButton])
   }
 }
 

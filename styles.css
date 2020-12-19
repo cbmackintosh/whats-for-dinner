@@ -21,10 +21,15 @@ button {
   display: none;
 }
 
+h1, h2, h3, ul, p, input {
+  font-family: 'Roboto', sans-serif;
+}
+
 /*NAV BAR*/
 
 nav {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   background-color: #0fb9b1;
   height: 7%;
@@ -38,12 +43,24 @@ nav {
 
  .nav-bar-buttons {
    list-style: none;
+   vertical-align: middle;
+   margin: 0px;
  }
 
  .nav-bar-buttons > li {
    float: left;
-   padding: 5px;
+   vertical-align: middle;
  }
+
+.add-a-recipe {
+  background: rgba(225, 225, 225);
+  margin-right: 1vw;
+}
+
+.view-favorites {
+  background: rgba(225, 225, 225);
+  margin-right: 2vw;
+}
 
 /* MAIN HOME CONTAINER */
 
@@ -59,6 +76,7 @@ nav {
   width: 40vw;
   height: 35vw;
   overflow: auto;
+  align-items: flex-start;
 }
 
 .home-menu-heading {
@@ -91,6 +109,7 @@ nav {
   width: 40vw;
   height: 35vw;
   overflow: auto;
+  align-items: center;
 }
 
 .cookpot {
@@ -98,7 +117,7 @@ nav {
   width: 30vw;
   margin-left: 5vw;
   margin-right: 5vw;
-  margin-top: 17vh;
+  margin-top: 19vh;
   margin-bottom: 17vh;
 }
 
@@ -121,29 +140,30 @@ nav {
   margin-right: 1vw;
 }
 
-.clear-button {
-  background-color: #95a5a6;
-  color: white;
-  margin-left: 20vw;
-  margin-right: 0.5vw;
-  width: 5vw;
-  height: 5vh;
-  font-size: 1vw;
-}
-
 .add-favorite {
-  background-color: #95a5a6;
+  background-color: #0fb9b1;
   color: white;
-  margin-right: 0.5vw;
+  margin-right: 1vw;
   width: 5vw;
   height: 5vh;
   font-size: 0.75vw;
 }
 
+.clear-button {
+  background-color: #95a5a6;
+  color: white;
+  margin-left: 20vw;
+  margin-right: 1vw;
+  width: 5vw;
+  height: 5vh;
+  font-size: 1vw;
+  vertical-align: bottom;
+}
+
 .remove-recipe {
   background-color: #95a5a6;
   color: white;
-  margin-right: 0.5vw;
+  margin-right: 1vw;
   width: 5vw;
   height: 5vh;
   font-size: 0.75vw;
@@ -151,32 +171,68 @@ nav {
 
 /* FAVORITES MENU */
 
+.delete-fav {
+  background-color: #0fb9b1;
+  margin-left: 1vw;
+  height: 1.5vw;
+  font-size: 1vw;
+  margin-bottom: 2vh;
+}
+
 .favorites-menu {
   background-color: rgba(225, 225, 225, .9);
-  width: 40vw;
+  width: 50vw;
   height: 35vw;
-  overflow: auto;
+  padding: 2vw;
+}
+
+.favorites-list {
+  list-style: none;
+}
+
+.exit-favs-menu {
+  background-color: #95a5a6;
+  width: 100px;
 }
 
 /*ADD NEW RECIPE MENU*/
 
 .recipe-submission-menu {
   background-color: rgba(225, 225, 225, .9);
-  height: 7%;
+  height: 12vh;
   bottom: 0;
   width: 100%;
   position: absolute;
   display: flex;
   justify-content: flex-start;
+  align-items: center;
 }
 
-.error-message {
-  color: red;
+.form-heading {
+  margin-left: 3vw;
+  font-size: 1.5vw;
 }
 
-.favorites-list {
-  list-style: none;
+.recipe-submission-field {
+  height: 25%;
+  vertical-align: middle;
 }
+
+.submit-side, .submit-main, .submit-dessert {
+  font-family: 'Roboto', sans-serif;
+}
+
+.submit-new-recipe-button, .exit-submit-menu {
+  margin-left: 2vw;
+  width: 10vw;
+  background-color: #0fb9b1;
+  font-size: 1vw;
+  height: 5vh;
+}
+
+
+
+
 
 /* font-family: 'Roboto', sans-serif;
 COLORS
